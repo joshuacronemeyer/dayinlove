@@ -1,0 +1,54 @@
+html body{
+    background-color: $pip;
+}
+header {
+    margin: 50px 0 50px 0;
+    font-family: 'Permanent Marker', cursive;
+    .day{
+        font-size: 7em;
+        &.sunday, &.tuesday, &.thursday{
+            color: $hollyhock;
+        }
+        &.monday, &.wednesday, &.saturday{
+            color: $enamelware;
+        }
+        &.friday{
+            color: $cornucopia;
+        }
+    }
+    .site{
+        font-size: 4em;
+        color: $lavastone;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+    header {
+        .day{
+            font-size: 6em;
+        }
+        .site{
+            font-size: 3em;
+        }
+    }
+}
+@media (max-width: 767px) {
+    header {
+        .day{
+            font-size: 5em;
+        }
+        .site{
+            font-size: 2.5em;
+        }
+    }
+}
+@media (max-width: 480px) {
+    header {
+        .day{
+            font-size: 5em;
+        }
+        .site{
+            font-size: 2em;
+        }
+    }
+}
