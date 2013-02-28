@@ -14,9 +14,12 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
 end
+
 group :test, :development do
   gem 'sqlite3'
+  gem 'timecop'
 end
+
 group :production do
   gem 'pg'
 end
