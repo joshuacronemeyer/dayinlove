@@ -10,6 +10,9 @@
 </head>
 <body>
 <div class="row">
+  <header class="row span8 offset3">
+    <span class="day <%=today.downcase%>"><%=today_abbrev%></span><span class="site">.dayinlove.com</span>
+  </header>
   <div class="span8 offset4">
     <%= yield %>
   </div>

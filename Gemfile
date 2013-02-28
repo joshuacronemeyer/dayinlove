@@ -4,6 +4,9 @@ gem 'rails', '3.2.12'
 gem 'thin'
 gem 'jquery-rails'
 gem 'omniauth-twitter'
+gem 'rmagick'
+gem 'aws-sdk'
+gem 'rest-open-uri'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

@@ -9,6 +9,9 @@ header {
         &.sunday, &.tuesday, &.thursday{
             color: $hollyhock;
         }
+        &.wednesday{
+            font-size: 5em;
+        }
         &.monday, &.wednesday, &.saturday{
             color: $enamelware;
         }
@@ -26,6 +29,9 @@ header {
     header {
         .day{
             font-size: 6em;
+            &.wednesday{
+                font-size: 5em;
+            }
         }
         .site{
             font-size: 3em;
@@ -36,6 +42,9 @@ header {
     header {
         .day{
             font-size: 5em;
+            &.wednesday{
+                font-size: 4em;
+            }
         }
         .site{
             font-size: 2.5em;
@@ -46,6 +55,9 @@ header {
     header {
         .day{
             font-size: 5em;
+            &.wednesday{
+                font-size: 3.5em;
+            }
         }
         .site{
             font-size: 2em;
