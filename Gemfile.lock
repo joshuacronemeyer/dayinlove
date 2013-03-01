@@ -42,6 +42,11 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     daemons (1.1.9)
+    delayed_job (3.0.5)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.4.2)
+      activerecord (>= 2.1.0, < 4)
+      delayed_job (~> 3.0)
     erubis (2.7.0)
     eventmachine (1.0.0)
     execjs (1.4.0)
@@ -146,6 +151,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   coffee-rails (~> 3.2.1)
+  delayed_job_active_record
   jquery-rails
   omniauth-twitter
   pg
