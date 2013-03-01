@@ -3,6 +3,12 @@ class LoveRequest
     @mention = mention
   end
   
-  def parse
+  def process!
+    if @mention.media && !@mention.media.empty?
+      photo = @mention.media.first
+      url = photo.display_url
+      CompositeImage.new(url, "Friday I'm in love").delay.composite!
+    end
   end
+
 end

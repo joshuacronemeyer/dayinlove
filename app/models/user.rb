@@ -8,11 +8,11 @@ class User < ActiveRecord::Base
       user.secret = auth["credentials"]["secret"]
     end
   end
-  
+
   def tweet(message)
     Twitter.configure do |config|
-      config.consumer_key = ENV['TWITTER_KEY']
-      config.consumer_secret = ENV['TWITTER_SECRET']
+      config.consumer_key = "km3qqeLxsDAPglsE5n4zRg"
+      config.consumer_secret = "2ZjZAJvnXKSZPzDKFVbBZ98yAtP9kWDhP30w7YYzw4"
       config.oauth_token = self.token
       config.oauth_token_secret = self.secret
     end
