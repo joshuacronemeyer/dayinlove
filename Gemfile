@@ -7,6 +7,7 @@ gem 'omniauth-twitter'
 gem 'rmagick'
 gem 'aws-sdk'
 gem 'rest-open-uri'
+gem 'twitter'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
