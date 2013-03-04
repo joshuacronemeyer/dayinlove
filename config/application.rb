@@ -8,6 +8,7 @@ end
 
 module Dayinlove
   class Application < Rails::Application
+    config.assets.initialize_on_precompile = false
     config.autoload_paths += %W(#{config.root}/lib)
     config.encoding = "utf-8"
     config.filter_parameters += [:password]
