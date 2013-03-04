@@ -8,7 +8,7 @@ gem 'rmagick'
 gem 'aws-sdk'
 gem 'rest-open-uri'
 gem 'twitter'
-gem 'delayed_job_active_record', '0.3.3'
+gem 'delayed_job_active_record'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

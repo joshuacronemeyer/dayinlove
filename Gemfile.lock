@@ -151,7 +151,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   coffee-rails (~> 3.2.1)
-  delayed_job_active_record (= 0.3.3)
+  delayed_job_active_record
   jquery-rails
   omniauth-twitter
   pg
