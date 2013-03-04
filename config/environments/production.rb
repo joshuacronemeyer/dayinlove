@@ -1,5 +1,3 @@
-require "#{Rails.root}/middleware/rack/today"
-
 Dayinlove::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
   config.middleware.use Rack::Today
