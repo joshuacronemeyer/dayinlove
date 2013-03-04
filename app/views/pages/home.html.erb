@@ -10,4 +10,9 @@
   </p>
   <small>Robert Smith <cite title="Source Title">Friday I'm in Love</cite></small>
 </blockquote>
+<% if @auth_failed %>
+<p class="row span8 alert alert-error">
+  Your login attempt failed.
+</p>
+<% end %>
 <p class="row span8 lead"><%= link_to "Sign in with Twitter", "/auth/twitter" %> to get started.</p>
