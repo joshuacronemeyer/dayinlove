@@ -4,13 +4,13 @@ class TwitterBot < ActiveRecord::Base
 
   def self.process_new_mentions
     options = {count: NUMBER_TO_PROCESS}
-    options.merge!({since_id: processor.newest_processed_mention_id}) if processor.newest_processed_mention_id
+    options.merge!({since_id: bobby.newest_processed_mention_id}) if bobby.newest_processed_mention_id
     mentions_to_process = get_mentions(options)
     mentions_to_process.each do |mention|
       log_message_processed(mention)
       LoveRequest.new(mention).process! unless should_be_ignored?(mention)
-      processor.update_attributes(newest_processed_mention_id: mention.id)
-    end      
+      pro.update_attributes(newest_processed_mention_id: mention.id)
+    end
   end
   
   def self.bobby
@@ -28,12 +28,12 @@ class TwitterBot < ActiveRecord::Base
 
   private
 
-  def get_mentions(options)
+  def self.get_mentions(options)
     configure_twitter
     Twitter.mentions_timeline(options)
   end
 
-  def configure_twitter
+  def self.configure_twitter
     Twitter.configure do |config|
       config.consumer_key = "km3qqeLxsDAPglsE5n4zRg"
       config.consumer_secret = "2ZjZAJvnXKSZPzDKFVbBZ98yAtP9kWDhP30w7YYzw4"

@@ -17,9 +17,8 @@ class CompositeImage
   def fetch_image
     dont_download_huge_images!
     @image = Tempfile.new(['dayinlove', '.jpg'], "#{Rails.root}/tmp")
-    uri = URI.parse(@image_url)
     File.open(@image, 'wb') do |file|
-      file << uri.read
+      file << get_uri.read
     end
   end
 
@@ -42,6 +41,11 @@ class CompositeImage
   end
 
   private
+
+  def get_uri
+    URI.parse(@image_url)
+  end
+
   def delete_files
     @annotated_image.close
     @annotated_image.unlink
