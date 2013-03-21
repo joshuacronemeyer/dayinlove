@@ -8,7 +8,7 @@ class TwitterBot < ActiveRecord::Base
     mentions_to_process = get_mentions(options)
     mentions_to_process.each do |mention|
       log_message_processed(mention)
-      LoveRequest.new(mention).process! unless should_be_ignored?(mention)
+      LoveRequest.process!(mention) unless should_be_ignored?(mention)
       pro.update_attributes(newest_processed_mention_id: mention.id)
     end
   end
@@ -22,24 +22,24 @@ class TwitterBot < ActiveRecord::Base
     processor.update_attributes(newest_processed_mention_id: mentions.first.id) if mentions.first
   end
   
-  def tweet
-    
+  def tweet(user, love_request)
+    api_user = Twitter::Client.new(
+      :oauth_token => user.token,
+      :oauth_token_secret => user.secret
+    )
+    api_user.update_with_media(love_request.todays_message)
   end
 
   private
 
   def self.get_mentions(options)
-    configure_twitter
-    Twitter.mentions_timeline(options)
-  end
-
-  def self.configure_twitter
-    Twitter.configure do |config|
-      config.consumer_key = "km3qqeLxsDAPglsE5n4zRg"
-      config.consumer_secret = "2ZjZAJvnXKSZPzDKFVbBZ98yAtP9kWDhP30w7YYzw4"
-      config.oauth_token = "1209323317-hLKqJHIyBQZAjXfzUmp7YRWsnAYcbnFaQFNFKTm"
-      config.oauth_token_secret = "h9jDidOLH0uzzBz6kuzqB34NJ0NorClL8QD2wmpY"
-    end
+    bot = Twitter::Client.new(
+      :consumer_key => "km3qqeLxsDAPglsE5n4zRg",
+      :consumer_secret => "2ZjZAJvnXKSZPzDKFVbBZ98yAtP9kWDhP30w7YYzw4",
+      :oauth_token => "1209323317-hLKqJHIyBQZAjXfzUmp7YRWsnAYcbnFaQFNFKTm",
+      :oauth_token_secret => "h9jDidOLH0uzzBz6kuzqB34NJ0NorClL8QD2wmpY"
+    )
+    bot.mentions_timeline(options)
   end
 
   def self.classic_retweet?(tweet_text)

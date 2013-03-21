@@ -3,15 +3,18 @@ require 'RMagick'
 include OpenURI
 
 class CompositeImage
-  def initialize(image_url, message)
-    @image_url = image_url
-    @message = message
+  def initialize(love_request)
+    @love_request = love_request
+    @image_url = love_request.original_file_url
   end
 
   def composite!
     fetch_image
     annotate_image
-    store_image
+    TwitterBot.tweet(@love_request, @annotated_image)
+    url = store_image
+    @love_request.update_attributes(annotated_file_url:url)
+    url
   end
 
   def fetch_image
@@ -72,7 +75,8 @@ class CompositeImage
   end
 
   def annotate(canvas)
-    @message.reverse.each_with_index do |message, i|
+    message_array = [@love_request.today, @love_request.messages[@love_request.today]]
+    message_array.reverse.each_with_index do |message, i|
       canvas.annotate(get_font, 0,0,0,i*50, message)
     end
   end

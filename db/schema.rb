@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301094331) do
+ActiveRecord::Schema.define(:version => 20130320152710) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(:version => 20130301094331) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "love_requests", :force => true do |t|
+    t.string  "request"
+    t.string  "original_file_url"
+    t.string  "annotated_file_url"
+    t.integer "user_id"
+  end
 
   create_table "twitter_bots", :force => true do |t|
     t.integer  "newest_processed_mention_id"
