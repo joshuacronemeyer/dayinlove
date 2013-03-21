@@ -22,10 +22,10 @@ class TwitterBot < ActiveRecord::Base
     processor.update_attributes(newest_processed_mention_id: mentions.first.id) if mentions.first
   end
   
-  def tweet(user, love_request)
+  def self.tweet(love_request)
     api_user = Twitter::Client.new(
-      :oauth_token => user.token,
-      :oauth_token_secret => user.secret
+      :oauth_token => love_request.user.token,
+      :oauth_token_secret => love_request.user.secret
     )
     api_user.update_with_media(love_request.todays_message)
   end
