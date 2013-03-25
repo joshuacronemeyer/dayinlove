@@ -1,6 +1,6 @@
 class LoveRequest < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :user, :original_file_url, :request
+  attr_accessible :user, :original_file_url, :request, :annotated_file_url
   def self.process!(mention)
     user = User.find_by_nickname(mention.from_user)
     if mention.media && !mention.media.empty?
@@ -13,7 +13,7 @@ class LoveRequest < ActiveRecord::Base
   end
   
   def todays_message
-    "#{today} #{messages[today]}"
+    "#{today} #{messages[today].join(" ")}"
   end
 
   def today
@@ -21,13 +21,12 @@ class LoveRequest < ActiveRecord::Base
   end
 
   def messages
-    {"Monday" => "You can fall apart",
-    "Tuesday" => "Break my heart",
-    "Wednesday" => "Break my heart",
-    "Thursday" => "Doesn't even start",
-    "Friday" => "I'm in love",
-    "Saturday" => "Wait...",
-    "Sunday" => "Always comes too late"}
+    {"Monday" => ["You can", "fall apart"],
+    "Tuesday" => ["Break my heart"],
+    "Wednesday" => ["Break my heart"],
+    "Thursday" => ["Doesn't even start"],
+    "Friday" => ["I'm in love"],
+    "Saturday" => ["Wait..."],
+    "Sunday" => ["Always comes", "too late"]}
   end
-
 end

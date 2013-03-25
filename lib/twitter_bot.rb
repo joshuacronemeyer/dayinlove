@@ -7,6 +7,7 @@ class TwitterBot < ActiveRecord::Base
     options.merge!({since_id: bobby.newest_processed_mention_id}) if bobby.newest_processed_mention_id
     mentions_to_process = get_mentions(options)
     mentions_to_process.each do |mention|
+      p mention.from_user
       log_message_processed(mention)
       LoveRequest.process!(mention) unless should_be_ignored?(mention)
       pro.update_attributes(newest_processed_mention_id: mention.id)
@@ -24,6 +25,8 @@ class TwitterBot < ActiveRecord::Base
   
   def self.tweet(love_request, image)
     api_user = Twitter::Client.new(
+      :consumer_key => "km3qqeLxsDAPglsE5n4zRg",
+      :consumer_secret => "2ZjZAJvnXKSZPzDKFVbBZ98yAtP9kWDhP30w7YYzw4",
       :oauth_token => love_request.user.token,
       :oauth_token_secret => love_request.user.secret
     )

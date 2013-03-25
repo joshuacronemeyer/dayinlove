@@ -13,7 +13,7 @@ class CompositeImage
     fetch_image
     annotate_image
     TwitterBot.tweet(@love_request, @annotated_image)
-    url = store_image
+    url = store_image_in_s3_and_delete_local
     @love_request.update_attributes(annotated_file_url:url)
     url
   end
@@ -34,7 +34,7 @@ class CompositeImage
     canvas.write @annotated_image.path
   end
 
-  def store_image
+  def store_image_in_s3_and_delete_local
     s3 = AWS::S3.new
     b = s3.buckets[ENV['S3_BUCKET_NAME']]
     o = b.objects["#{SecureRandom.hex(10)}.jpg"]
@@ -70,10 +70,10 @@ class CompositeImage
     raise "Image too large to process." if size.to_i > 1000000
   end
 
-  def get_font
+  def get_font(message_length)
     text = Magick::Draw.new
     text.fill = '#FFFFFF'
-    text.pointsize = 65
+    text.pointsize = font_size(message_length)
     text.stroke = "#000000"
     text.stroke_width = 2
     text.font = "#{Rails.root}/lib/assets/fonts/PermanentMarker.ttf"
@@ -82,9 +82,16 @@ class CompositeImage
   end
 
   def annotate(canvas)
-    message_array = [@love_request.today, @love_request.messages[@love_request.today]]
+    message_array = [@love_request.today].concat(@love_request.messages[@love_request.today])
     message_array.reverse.each_with_index do |message, i|
-      canvas.annotate(get_font, 0,0,0,i*50, message)
+      canvas.annotate(get_font(message.size), 0,0,0,i*50, message)
     end
+  end
+
+  def font_size(message_length)
+    max_large_characters_that_fit_a_line = 17
+    small_point_size = 55
+    large_point_size = 65
+    message_length > max_large_characters_that_fit_a_line ? small_point_size : large_point_size
   end
 end
