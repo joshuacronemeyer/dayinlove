@@ -7,7 +7,6 @@ class TwitterBot < ActiveRecord::Base
     options.merge!({since_id: bobby.newest_processed_mention_id}) if bobby.newest_processed_mention_id
     mentions_to_process = get_mentions(options)
     mentions_to_process.each do |mention|
-      p mention.from_user
       log_message_processed(mention)
       LoveRequest.process!(mention) unless should_be_ignored?(mention)
       pro.update_attributes(newest_processed_mention_id: mention.id)
