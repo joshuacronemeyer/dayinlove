@@ -9,7 +9,7 @@ class TwitterBot < ActiveRecord::Base
     mentions_to_process.each do |mention|
       log_message_processed(mention)
       LoveRequest.process!(mention) unless should_be_ignored?(mention)
-      pro.update_attributes(newest_processed_mention_id: mention.id)
+      bobby.update_attributes(newest_processed_mention_id: mention.id)
     end
   end
   
