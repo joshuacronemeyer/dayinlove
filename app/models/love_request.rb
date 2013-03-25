@@ -16,7 +16,6 @@ class LoveRequest < ActiveRecord::Base
     "#{today} #{messages[today]}"
   end
 
-  private
   def today
     Date.today.strftime('%A')
   end
