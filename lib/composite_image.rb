@@ -6,7 +6,6 @@ class CompositeImage
   def initialize(love_request)
     @love_request = love_request
     @image_url = love_request.original_file_url
-    @tmp_dir = ensure_temp_dir_exists
   end
 
   def composite!
@@ -20,7 +19,7 @@ class CompositeImage
 
   def fetch_image
     dont_download_huge_images!
-    @image = Tempfile.new(['dayinlove', '.jpg'], @tmp_dir)
+    @image = Tempfile.new(['dayinlove', '.jpg'], ensure_temp_dir_exists)
     File.open(@image, 'wb') do |file|
       file << get_uri.read
     end
@@ -30,7 +29,7 @@ class CompositeImage
     canvas = Magick::ImageList.new(@image.path)
     canvas.change_geometry!('500') { |cols, rows, img| img.resize!(cols, rows) }
     annotate(canvas)
-    @annotated_image = Tempfile.new(['dayinlove', '.jpg'], @tmp_dir)
+    @annotated_image = Tempfile.new(['dayinlove', '.jpg'], ensure_temp_dir_exists)
     canvas.write @annotated_image.path
   end
 
